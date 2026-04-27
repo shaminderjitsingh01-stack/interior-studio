@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 const links = [
   { href: '/portfolio', label: 'Portfolio' },
@@ -12,6 +13,12 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const pathname = usePathname()
+
+  const isHome = pathname === '/'
+
+  // Transparent only on home page before scrolling
+  const isTransparent = isHome && !scrolled && !menuOpen
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -22,16 +29,16 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-        scrolled || menuOpen
-          ? 'bg-off-white/95 backdrop-blur-sm border-b border-border'
-          : 'bg-transparent'
+        isTransparent
+          ? 'bg-transparent'
+          : 'bg-off-white/95 backdrop-blur-sm border-b border-border'
       }`}
     >
       <div className="flex items-center justify-between px-6 md:px-12 h-20">
         <Link
           href="/"
           className={`font-display text-xl tracking-[0.2em] transition-colors duration-700 ${
-            scrolled || menuOpen ? 'text-charcoal' : 'text-off-white'
+            isTransparent ? 'text-off-white' : 'text-charcoal'
           }`}
         >
           ZELF COLLECTIVE
@@ -44,7 +51,7 @@ export default function Navbar() {
               key={l.href}
               href={l.href}
               className={`text-xs uppercase tracking-[0.2em] transition-colors duration-700 hover:opacity-50 ${
-                scrolled ? 'text-charcoal' : 'text-off-white'
+                isTransparent ? 'text-off-white' : 'text-charcoal'
               }`}
             >
               {l.label}
@@ -58,21 +65,16 @@ export default function Navbar() {
           className="md:hidden flex flex-col justify-center gap-[5px] w-6 h-6"
           aria-label="Toggle menu"
         >
-          <span
-            className={`block w-6 h-px bg-current transition-all duration-300 origin-center ${
-              menuOpen ? 'rotate-45 translate-y-[6px]' : ''
-            } ${scrolled || menuOpen ? 'bg-charcoal' : 'bg-off-white'}`}
-          />
-          <span
-            className={`block w-6 h-px transition-all duration-300 ${
-              menuOpen ? 'opacity-0' : ''
-            } ${scrolled || menuOpen ? 'bg-charcoal' : 'bg-off-white'}`}
-          />
-          <span
-            className={`block w-6 h-px bg-current transition-all duration-300 origin-center ${
-              menuOpen ? '-rotate-45 -translate-y-[6px]' : ''
-            } ${scrolled || menuOpen ? 'bg-charcoal' : 'bg-off-white'}`}
-          />
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className={`block w-6 h-px transition-all duration-300 ${
+                isTransparent ? 'bg-off-white' : 'bg-charcoal'
+              } ${i === 0 && menuOpen ? 'rotate-45 translate-y-[6px]' : ''}
+                ${i === 1 && menuOpen ? 'opacity-0' : ''}
+                ${i === 2 && menuOpen ? '-rotate-45 -translate-y-[6px]' : ''}`}
+            />
+          ))}
         </button>
       </div>
 
