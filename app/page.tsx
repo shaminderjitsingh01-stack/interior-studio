@@ -1,35 +1,49 @@
 import Navbar from '@/components/Navbar'
 import HeroVideo from '@/components/HeroVideo'
-import ProjectGrid from '@/components/ProjectGrid'
+import ProjectList from '@/components/ProjectList'
 import Footer from '@/components/Footer'
 import AnimatedSection from '@/components/AnimatedSection'
 import Link from 'next/link'
 import { getFeaturedProjects, getTestimonials } from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
 
 export default async function HomePage() {
-  const [projects, testimonials] = await Promise.all([
+  const [rawProjects, testimonials] = await Promise.all([
     getFeaturedProjects(6),
     getTestimonials(),
   ])
+
+  // Transform server-side so no Sanity client ends up in the browser bundle
+  const projects = rawProjects.map((p: any) => ({
+    _id: p._id,
+    title: p.title,
+    slug: p.slug,
+    imageUrl: p.coverImage ? urlFor(p.coverImage).width(760).height(520).url() : undefined,
+    location: p.location,
+    year: p.year,
+    tags: p.tags,
+  }))
 
   return (
     <>
       <Navbar />
       <HeroVideo />
 
-      {/* Editorial Quote */}
-      <AnimatedSection className="py-28 px-6 text-center">
+      {/* Editorial quote */}
+      <AnimatedSection className="py-32 px-6 text-center">
         <p className="font-display text-3xl md:text-5xl text-charcoal leading-tight max-w-4xl mx-auto italic font-light">
           "We design spaces that become the backdrop of your most meaningful moments."
         </p>
       </AnimatedSection>
 
-      {/* Featured Projects */}
+      {/* Featured projects — numbered editorial list */}
       <section className="px-6 md:px-12 pb-32">
         <AnimatedSection className="flex items-end justify-between mb-16">
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-3">Selected Work</p>
-            <h2 className="font-display text-5xl md:text-7xl font-light">Projects</h2>
+            <h2 className="font-display font-light" style={{ fontSize: 'clamp(3rem, 7vw, 7rem)' }}>
+              Projects
+            </h2>
           </div>
           <Link
             href="/portfolio"
@@ -38,8 +52,10 @@ export default async function HomePage() {
             View All <span>→</span>
           </Link>
         </AnimatedSection>
-        <ProjectGrid projects={projects} />
-        <div className="mt-12 flex md:hidden">
+
+        <ProjectList projects={projects} />
+
+        <div className="mt-10 flex md:hidden">
           <Link href="/portfolio" className="text-xs uppercase tracking-widest border-b border-charcoal pb-1">
             View All Projects
           </Link>
@@ -83,7 +99,9 @@ export default async function HomePage() {
                   <p className="font-display text-2xl md:text-4xl font-light italic leading-relaxed text-charcoal mb-8">
                     "{t.quote}"
                   </p>
-                  <p className="text-xs uppercase tracking-widest text-mid-gray">— {t.name}{t.location ? `, ${t.location}` : ''}</p>
+                  <p className="text-xs uppercase tracking-widest text-mid-gray">
+                    — {t.name}{t.location ? `, ${t.location}` : ''}
+                  </p>
                 </div>
               ))}
             </div>
@@ -94,7 +112,10 @@ export default async function HomePage() {
       {/* CTA */}
       <AnimatedSection className="py-32 px-6 text-center bg-cream">
         <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-6">Begin Your Journey</p>
-        <h2 className="font-display text-5xl md:text-7xl font-light mb-12">
+        <h2
+          className="font-display font-light mb-12"
+          style={{ fontSize: 'clamp(3rem, 8vw, 8rem)', lineHeight: 0.95 }}
+        >
           Let's design something<br />
           <em>extraordinary</em>
         </h2>
