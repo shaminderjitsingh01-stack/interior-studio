@@ -110,11 +110,11 @@ export default async function HomePage() {
       )}
 
       {/* CTA */}
-      <AnimatedSection className="py-32 px-6 text-center bg-cream">
-        <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-6">Begin Your Journey</p>
+      <AnimatedSection className="py-20 md:py-32 px-6 text-center bg-cream">
+        <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-5 md:mb-6">Begin Your Journey</p>
         <h2
-          className="font-display font-light mb-12"
-          style={{ fontSize: 'clamp(3rem, 8vw, 8rem)', lineHeight: 0.95 }}
+          className="font-display font-light mb-10 md:mb-12"
+          style={{ fontSize: 'clamp(2rem, 8vw, 8rem)', lineHeight: 0.95 }}
         >
           Let's design something<br />
           <em>extraordinary</em>

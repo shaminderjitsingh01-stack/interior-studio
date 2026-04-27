@@ -26,15 +26,14 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
 
   const hoveredProject = hoveredIdx !== null ? projects[hoveredIdx] : null
   const containerWidth = containerRef.current?.offsetWidth ?? 9999
-  // Flip image to left side when near right edge
   const imgLeft = pos.x + 440 > containerWidth ? pos.x - 420 : pos.x + 40
 
   return (
     <div ref={containerRef} className="relative" onMouseMove={onMouseMove}>
 
-      {/* Floating image — follows cursor */}
+      {/* Floating image — desktop hover only */}
       <div
-        className="absolute pointer-events-none overflow-hidden"
+        className="absolute pointer-events-none overflow-hidden hidden md:block"
         style={{
           width: 380,
           height: 260,
@@ -56,23 +55,22 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
         )}
       </div>
 
-      {/* Rows */}
       {projects.map((project, i) => {
         const isHovered = hoveredIdx === i
         return (
           <Link
             key={project._id}
             href={`/portfolio/${project.slug.current}`}
-            className="group block border-t border-border py-8 md:py-10"
+            className="group block border-t border-border py-7 md:py-10"
             onMouseEnter={() => setHoveredIdx(i)}
             onMouseLeave={() => setHoveredIdx(null)}
           >
-            {/* Number + Title */}
-            <div className="flex items-baseline justify-between gap-6">
+            {/* Mobile: stacked. Desktop: side by side */}
+            <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1 md:gap-6">
+              {/* Number */}
               <span
-                className="font-display font-light leading-none shrink-0"
+                className="font-display font-light leading-none shrink-0 text-4xl md:text-6xl lg:text-8xl"
                 style={{
-                  fontSize: 'clamp(2.5rem, 6vw, 6rem)',
                   color: isHovered ? '#C9A96E' : '#E8E4DE',
                   transition: 'color 0.4s ease',
                 }}
@@ -80,10 +78,10 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
                 {String(i + 1).padStart(2, '0')}
               </span>
 
+              {/* Title */}
               <h3
-                className="font-display font-light text-right leading-none"
+                className="font-display font-light leading-none md:text-right text-3xl md:text-5xl lg:text-7xl"
                 style={{
-                  fontSize: 'clamp(2rem, 5vw, 5.5rem)',
                   color: isHovered ? '#8C7B6B' : '#1C1C1C',
                   transition: 'color 0.5s ease',
                 }}
@@ -94,7 +92,7 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
 
             {/* Divider */}
             <div
-              className="my-5 border-t"
+              className="my-4 border-t"
               style={{
                 borderColor: isHovered ? '#C9A96E' : '#E8E4DE',
                 transition: 'border-color 0.4s ease',
@@ -103,11 +101,11 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
 
             {/* Meta */}
             <div className="flex items-center justify-between">
-              <p className="text-xs uppercase tracking-[0.22em] text-mid-gray">
+              <p className="text-xs uppercase tracking-[0.18em] text-mid-gray">
                 {[project.tags?.[0], project.location, project.year].filter(Boolean).join('  ·  ')}
               </p>
               <span
-                className="text-xs uppercase tracking-widest text-gold"
+                className="text-xs uppercase tracking-widest text-gold hidden md:block"
                 style={{
                   opacity: isHovered ? 1 : 0,
                   transform: isHovered ? 'translateX(0)' : 'translateX(-10px)',
@@ -116,6 +114,8 @@ export default function ProjectList({ projects }: { projects: Project[] }) {
               >
                 View Project →
               </span>
+              {/* Mobile: always show arrow */}
+              <span className="text-xs text-gold md:hidden">→</span>
             </div>
           </Link>
         )

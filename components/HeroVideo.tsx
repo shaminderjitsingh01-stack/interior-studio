@@ -32,13 +32,15 @@ export default function HeroVideo() {
       />
       <div className="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-charcoal/10 to-charcoal/65" />
 
-      {/* Main content */}
       <div
-        className="relative h-full flex flex-col justify-end px-6 md:px-12 pb-24 md:pb-32"
+        className="relative h-full flex flex-col justify-end px-6 md:px-12 pb-20 md:pb-32"
         style={fadeStyle(0)}
       >
-        <p className="text-gold text-xs uppercase tracking-[0.3em] mb-6">Zelf Collective</p>
-        <h1 className="font-display text-off-white font-light leading-[0.85] mb-12" style={{ fontSize: 'clamp(4rem, 12vw, 14rem)' }}>
+        <p className="text-gold text-xs uppercase tracking-[0.3em] mb-4 md:mb-6">Zelf Collective</p>
+        <h1
+          className="font-display text-off-white font-light leading-[0.88] mb-8 md:mb-12"
+          style={{ fontSize: 'clamp(2.8rem, 11vw, 14rem)' }}
+        >
           Spaces That<br />
           <em>Speak</em>
         </h1>
@@ -50,7 +52,7 @@ export default function HeroVideo() {
         </Link>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — desktop only */}
       <div
         className="absolute bottom-10 right-8 md:right-12 hidden md:flex flex-col items-center gap-3"
         style={fadeStyle(0.8)}

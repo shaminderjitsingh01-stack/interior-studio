@@ -19,23 +19,23 @@ export default async function JournalPage() {
     <>
       <Navbar />
 
-      <section className="pt-40 pb-24 px-6 md:px-12">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-24 px-6 md:px-12">
         <AnimatedSection>
-          <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-6">Thoughts & Perspectives</p>
+          <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-4 md:mb-6">Thoughts & Perspectives</p>
           <h1 className="font-display text-6xl md:text-9xl font-light leading-[0.9]">Journal</h1>
         </AnimatedSection>
       </section>
 
-      <section className="px-6 md:px-12 pb-32">
+      <section className="px-6 md:px-12 pb-20 md:pb-32">
         {posts.length === 0 ? (
           <p className="font-display text-3xl italic text-mid-gray font-light">Essays coming soon.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
             {posts.map((post: any, i: number) => (
-              <AnimatedSection key={post._id} delay={i * 0.1}>
+              <AnimatedSection key={post._id} delay={i * 0.08}>
                 <Link href={`/journal/${post.slug.current}`} className="group block">
                   {post.coverImage && (
-                    <div className="relative aspect-[16/9] overflow-hidden bg-cream mb-6">
+                    <div className="relative aspect-[16/9] overflow-hidden bg-cream mb-5 md:mb-6">
                       <Image
                         src={urlFor(post.coverImage).width(800).url()}
                         alt={post.title}
@@ -45,16 +45,16 @@ export default async function JournalPage() {
                       />
                     </div>
                   )}
-                  <p className="text-xs uppercase tracking-widest text-warm-stone mb-3">
+                  <p className="text-xs uppercase tracking-widest text-warm-stone mb-2 md:mb-3">
                     {post.publishedAt
                       ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
                       : ''}
                   </p>
-                  <h2 className="font-display text-3xl font-light mb-3 group-hover:text-warm-stone transition-colors duration-300">
+                  <h2 className="font-display text-2xl md:text-3xl font-light mb-3 group-hover:text-warm-stone transition-colors duration-300 leading-tight">
                     {post.title}
                   </h2>
                   {post.excerpt && (
-                    <p className="text-sm text-mid-gray leading-relaxed">{post.excerpt}</p>
+                    <p className="text-sm text-mid-gray leading-relaxed line-clamp-3">{post.excerpt}</p>
                   )}
                 </Link>
               </AnimatedSection>

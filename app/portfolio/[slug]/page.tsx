@@ -36,10 +36,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const ptComponents = {
   block: {
     normal: ({ children }: any) => (
-      <p className="text-mid-gray leading-relaxed mb-6 font-light">{children}</p>
+      <p className="text-mid-gray leading-relaxed mb-5 font-light text-base md:text-lg">{children}</p>
     ),
     h3: ({ children }: any) => (
-      <h3 className="font-display text-2xl font-light text-charcoal mb-4 mt-8">{children}</h3>
+      <h3 className="font-display text-xl md:text-2xl font-light text-charcoal mb-4 mt-8">{children}</h3>
     ),
   },
 }
@@ -66,21 +66,23 @@ export default async function ProjectPage({ params }: Props) {
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/20 to-charcoal/30" />
 
-        {/* Title anchored bottom-left */}
-        <div className="absolute bottom-12 left-6 md:left-12 right-6 md:right-12">
+        <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 right-6 md:right-12">
           <AnimatedSection>
-            <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-6">
               <div>
                 {project.tags?.length > 0 && (
-                  <p className="text-gold text-xs uppercase tracking-[0.3em] mb-4">
+                  <p className="text-gold text-xs uppercase tracking-[0.3em] mb-3 md:mb-4">
                     {project.tags[0]}
                   </p>
                 )}
-                <h1 className="font-display text-5xl md:text-7xl lg:text-9xl text-off-white font-light leading-[0.9]">
+                <h1
+                  className="font-display text-off-white font-light leading-[0.9]"
+                  style={{ fontSize: 'clamp(2.2rem, 7vw, 9rem)' }}
+                >
                   {project.title}
                 </h1>
               </div>
-              <div className="flex gap-8 md:gap-12 pb-2">
+              <div className="flex gap-6 md:gap-12 md:pb-2">
                 {project.location && (
                   <div>
                     <p className="text-off-white/50 text-[10px] uppercase tracking-widest mb-1">Location</p>
@@ -99,16 +101,16 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Excerpt / intro */}
+      {/* Excerpt */}
       {project.excerpt && (
-        <AnimatedSection className="py-20 px-6 md:px-12 border-b border-border">
-          <p className="font-display text-2xl md:text-4xl font-light italic text-charcoal max-w-3xl leading-tight">
+        <AnimatedSection className="py-12 md:py-20 px-6 md:px-12 border-b border-border">
+          <p className="font-display text-xl md:text-4xl font-light italic text-charcoal max-w-3xl leading-tight">
             {project.excerpt}
           </p>
         </AnimatedSection>
       )}
 
-      {/* Sections — the editorial narrative */}
+      {/* Sections */}
       {project.sections?.length > 0 && (
         <div>
           {project.sections.map((section: any, i: number) => {
@@ -117,18 +119,12 @@ export default async function ProjectPage({ params }: Props) {
 
             if (!hasImage || layout === 'text-only') {
               return (
-                <AnimatedSection
-                  key={i}
-                  className="py-20 px-6 md:px-12 max-w-3xl"
-                  delay={0.1}
-                >
+                <AnimatedSection key={i} className="py-14 md:py-20 px-6 md:px-12 max-w-3xl" delay={0.1}>
                   {section.heading && (
-                    <p className="text-xs uppercase tracking-[0.25em] text-gold mb-6">
-                      {section.heading}
-                    </p>
+                    <p className="text-xs uppercase tracking-[0.25em] text-gold mb-5 md:mb-6">{section.heading}</p>
                   )}
                   {section.body && (
-                    <div className="font-display text-lg">
+                    <div className="font-display">
                       <PortableText value={section.body} components={ptComponents} />
                     </div>
                   )}
@@ -139,7 +135,7 @@ export default async function ProjectPage({ params }: Props) {
             if (layout === 'image-full') {
               return (
                 <div key={i}>
-                  <AnimatedSection className="relative aspect-[16/9] bg-cream overflow-hidden">
+                  <AnimatedSection className="relative aspect-[4/3] md:aspect-[16/9] bg-cream overflow-hidden">
                     <Image
                       src={urlFor(section.image).width(1600).url()}
                       alt={section.image?.caption ?? section.heading ?? ''}
@@ -149,17 +145,15 @@ export default async function ProjectPage({ params }: Props) {
                     />
                   </AnimatedSection>
                   {(section.heading || section.body || section.image?.caption) && (
-                    <AnimatedSection className="py-12 px-6 md:px-12 max-w-2xl" delay={0.1}>
+                    <AnimatedSection className="py-10 md:py-12 px-6 md:px-12 max-w-2xl" delay={0.1}>
                       {section.heading && (
-                        <p className="text-xs uppercase tracking-[0.25em] text-gold mb-4">
-                          {section.heading}
-                        </p>
+                        <p className="text-xs uppercase tracking-[0.25em] text-gold mb-4">{section.heading}</p>
                       )}
                       {section.image?.caption && (
                         <p className="text-sm text-mid-gray italic mb-4">{section.image.caption}</p>
                       )}
                       {section.body && (
-                        <div className="font-display text-lg">
+                        <div className="font-display">
                           <PortableText value={section.body} components={ptComponents} />
                         </div>
                       )}
@@ -169,16 +163,19 @@ export default async function ProjectPage({ params }: Props) {
               )
             }
 
-            // image-left or image-right — 50/50 split
             const imageFirst = layout === 'image-left'
             return (
               <AnimatedSection
                 key={i}
-                className={`grid md:grid-cols-2 min-h-[60vh] ${i % 2 === 0 ? 'bg-off-white' : 'bg-cream'}`}
+                className={`grid grid-cols-1 md:grid-cols-2 ${i % 2 === 0 ? 'bg-off-white' : 'bg-cream'}`}
                 delay={0.05}
               >
                 {/* Image */}
-                <div className={`relative min-h-[40vh] md:min-h-full ${imageFirst ? 'md:order-first' : 'md:order-last'}`}>
+                <div
+                  className={`relative min-h-[55vw] md:min-h-[50vh] ${
+                    imageFirst ? 'md:order-first' : 'md:order-last'
+                  }`}
+                >
                   <Image
                     src={urlFor(section.image).width(900).url()}
                     alt={section.image?.caption ?? section.heading ?? ''}
@@ -189,19 +186,21 @@ export default async function ProjectPage({ params }: Props) {
                 </div>
 
                 {/* Text */}
-                <div className={`flex flex-col justify-center px-8 md:px-16 py-16 ${imageFirst ? 'md:order-last' : 'md:order-first'}`}>
+                <div
+                  className={`flex flex-col justify-center px-6 md:px-16 py-12 md:py-16 ${
+                    imageFirst ? 'md:order-last' : 'md:order-first'
+                  }`}
+                >
                   {section.heading && (
-                    <p className="text-xs uppercase tracking-[0.25em] text-gold mb-6">
-                      {section.heading}
-                    </p>
+                    <p className="text-xs uppercase tracking-[0.25em] text-gold mb-5 md:mb-6">{section.heading}</p>
                   )}
                   {section.body && (
-                    <div className="font-display text-lg">
+                    <div className="font-display">
                       <PortableText value={section.body} components={ptComponents} />
                     </div>
                   )}
                   {section.image?.caption && (
-                    <p className="text-xs text-mid-gray uppercase tracking-widest mt-6">
+                    <p className="text-xs text-mid-gray uppercase tracking-widest mt-5 md:mt-6">
                       {section.image.caption}
                     </p>
                   )}
@@ -214,25 +213,23 @@ export default async function ProjectPage({ params }: Props) {
 
       {/* Client quote */}
       {project.clientQuote?.quote && (
-        <AnimatedSection className="py-28 px-6 md:px-12 bg-charcoal">
+        <AnimatedSection className="py-20 md:py-28 px-6 md:px-12 bg-charcoal">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="font-display text-2xl md:text-4xl text-off-white font-light italic leading-relaxed mb-8">
+            <p className="font-display text-xl md:text-4xl text-off-white font-light italic leading-relaxed mb-6 md:mb-8">
               "{project.clientQuote.quote}"
             </p>
             {project.clientQuote.name && (
-              <p className="text-xs uppercase tracking-widest text-gold">
-                — {project.clientQuote.name}
-              </p>
+              <p className="text-xs uppercase tracking-widest text-gold">— {project.clientQuote.name}</p>
             )}
           </div>
         </AnimatedSection>
       )}
 
-      {/* Final gallery */}
+      {/* Gallery */}
       {project.gallery?.length > 0 && (
-        <section className="px-6 md:px-12 py-20">
+        <section className="px-6 md:px-12 py-16 md:py-20">
           <AnimatedSection>
-            <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-12">Gallery</p>
+            <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-10 md:mb-12">Gallery</p>
           </AnimatedSection>
           <div className="columns-1 md:columns-2 gap-4 space-y-4">
             {project.gallery.map((img: any, i: number) => (
@@ -253,8 +250,7 @@ export default async function ProjectPage({ params }: Props) {
         </section>
       )}
 
-      {/* Back to portfolio */}
-      <AnimatedSection className="px-6 md:px-12 pb-24 pt-8 border-t border-border">
+      <AnimatedSection className="px-6 md:px-12 pb-16 md:pb-24 pt-8 border-t border-border">
         <Link
           href="/portfolio"
           className="inline-flex items-center gap-3 text-xs uppercase tracking-widest text-mid-gray hover:text-charcoal transition-colors"

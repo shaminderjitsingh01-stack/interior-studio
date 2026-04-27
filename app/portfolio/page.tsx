@@ -17,14 +17,14 @@ export default async function PortfolioPage() {
     <>
       <Navbar />
 
-      <section className="pt-40 pb-24 px-6 md:px-12">
+      <section className="pt-32 md:pt-40 pb-16 md:pb-24 px-6 md:px-12">
         <AnimatedSection>
-          <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-6">Selected Work</p>
+          <p className="text-xs uppercase tracking-[0.25em] text-warm-stone mb-4 md:mb-6">Selected Work</p>
           <h1 className="font-display text-6xl md:text-9xl font-light leading-[0.9]">Portfolio</h1>
         </AnimatedSection>
       </section>
 
-      <section className="px-6 md:px-12 pb-32">
+      <section className="px-6 md:px-12 pb-20 md:pb-32">
         <ProjectGrid projects={projects} />
       </section>
 
