@@ -29,7 +29,8 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
               src={project.imageUrl}
               alt={project.title}
               fill
-              className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-[1.04]"
+              className="object-cover group-hover:scale-[1.06]"
+              style={{ transition: 'transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (

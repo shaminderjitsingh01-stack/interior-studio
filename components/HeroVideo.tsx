@@ -38,7 +38,7 @@ export default function HeroVideo() {
         style={fadeStyle(0)}
       >
         <p className="text-gold text-xs uppercase tracking-[0.3em] mb-6">Zelf Collective</p>
-        <h1 className="font-display text-6xl md:text-8xl lg:text-[10rem] text-off-white font-light leading-[0.88] mb-12 max-w-4xl">
+        <h1 className="font-display text-off-white font-light leading-[0.85] mb-12" style={{ fontSize: 'clamp(4rem, 12vw, 14rem)' }}>
           Spaces That<br />
           <em>Speak</em>
         </h1>

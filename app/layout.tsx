@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import CustomCursor from '@/components/CustomCursor'
+import PageWrapper from '@/components/PageWrapper'
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +21,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        {children}
+        <CustomCursor />
+        <PageWrapper>
+          {children}
+        </PageWrapper>
         <WhatsAppButton />
       </body>
     </html>

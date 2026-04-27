@@ -14,6 +14,7 @@
   --color-border: #E8E4DE;
 }
 
+/* ── Base ────────────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -27,33 +28,71 @@ body {
   font-weight: 300;
 }
 
+/* Hide default cursor on pointer devices — custom cursor takes over */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
 ::selection {
   background-color: var(--color-gold);
   color: #fff;
 }
 
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: var(--color-cream);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--color-warm-stone);
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-thumb { background: var(--color-warm-stone); }
+
+/* ── Film grain overlay ──────────────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.038;
+  pointer-events: none;
+  z-index: 9997;
+  animation: grain 8s steps(10) infinite;
 }
 
+@keyframes grain {
+  0%,100% { transform: translate(0,0); }
+  10%      { transform: translate(-2%,-3%); }
+  20%      { transform: translate(-4%, 2%); }
+  30%      { transform: translate( 2%,-4%); }
+  40%      { transform: translate(-2%, 4%); }
+  50%      { transform: translate(-3%, 2%); }
+  60%      { transform: translate( 3%, 0%); }
+  70%      { transform: translate( 0%, 3%); }
+  80%      { transform: translate( 1%, 4%); }
+  90%      { transform: translate(-3%, 2%); }
+}
+
+/* ── Page transitions ────────────────────────────────────────────────────── */
+.page-transition {
+  animation: pageFadeIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Project card fade-up ────────────────────────────────────────────────── */
 @keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Hero scroll bar ─────────────────────────────────────────────────────── */
 @keyframes scrollBar {
-  0%   { transform: scaleY(0); transform-origin: top; }
-  50%  { transform: scaleY(1); transform-origin: top; }
+  0%      { transform: scaleY(0); transform-origin: top; }
+  50%     { transform: scaleY(1); transform-origin: top; }
   50.001% { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
+  100%    { transform: scaleY(0); transform-origin: bottom; }
 }
 
 .animate-scroll-bar {
