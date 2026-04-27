@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap');
+
+@theme {
+  --font-display: 'Cormorant Garant', Georgia, serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --color-charcoal: #1C1C1C;
+  --color-cream: #F5F3EF;
+  --color-off-white: #FAFAF8;
+  --color-warm-stone: #8C7B6B;
+  --color-gold: #C9A96E;
+  --color-mid-gray: #6B6B6B;
+  --color-border: #E8E4DE;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-off-white);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  font-weight: 300;
+}
+
+::selection {
+  background-color: var(--color-gold);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-warm-stone);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scrollBar {
+  0%   { transform: scaleY(0); transform-origin: top; }
+  50%  { transform: scaleY(1); transform-origin: top; }
+  50.001% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.animate-scroll-bar {
+  animation: scrollBar 2s ease-in-out infinite;
+}
