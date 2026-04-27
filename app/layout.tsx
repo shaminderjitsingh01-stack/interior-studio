@@ -3,14 +3,14 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Studio Interior | Luxury Interior Design',
-    template: '%s | Studio Interior',
+    default: 'Zelf Collective | Luxury Interior Design',
+    template: '%s | Zelf Collective',
   },
-  description: 'An award-winning interior design studio crafting bespoke spaces that tell your story.',
+  description: 'Zelf Collective is a luxury interior design studio crafting bespoke spaces that tell your story.',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    siteName: 'Studio Interior',
+    siteName: 'Zelf Collective',
   },
 }
 

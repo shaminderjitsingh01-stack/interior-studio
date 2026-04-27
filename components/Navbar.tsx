@@ -34,7 +34,7 @@ export default function Navbar() {
             scrolled || menuOpen ? 'text-charcoal' : 'text-off-white'
           }`}
         >
-          STUDIO
+          ZELF COLLECTIVE
         </Link>
 
         {/* Desktop nav */}

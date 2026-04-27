@@ -37,7 +37,7 @@ export default function HeroVideo() {
         className="relative h-full flex flex-col justify-end px-6 md:px-12 pb-24 md:pb-32"
         style={fadeStyle(0)}
       >
-        <p className="text-gold text-xs uppercase tracking-[0.3em] mb-6">Interior Design Studio</p>
+        <p className="text-gold text-xs uppercase tracking-[0.3em] mb-6">Zelf Collective</p>
         <h1 className="font-display text-6xl md:text-8xl lg:text-[10rem] text-off-white font-light leading-[0.88] mb-12 max-w-4xl">
           Spaces That<br />
           <em>Speak</em>

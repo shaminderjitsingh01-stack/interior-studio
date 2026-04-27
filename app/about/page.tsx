@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Our philosophy, story, and services.',
+  description: 'The philosophy, story, and services of Zelf Collective.',
 }
 
 export default function AboutPage() {

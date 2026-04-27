@@ -28,7 +28,7 @@ export async function getProjectBySlug(slug: string) {
   if (!client) return null
   return client.fetch(
     `*[_type == "project" && slug.current == $slug][0] {
-      _id, title, slug, coverImage, gallery, description, location, year, tags
+      _id, title, slug, coverImage, excerpt, gallery, sections, location, year, tags, clientQuote
     }`,
     { slug }
   )
