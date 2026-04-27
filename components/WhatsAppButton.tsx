@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 const WHATSAPP_NUMBER = '6590000000' // replace with real number
-const WHATSAPP_MESSAGE = 'Hi Zelf Collective, I'd like to enquire about your interior design services.'
+const WHATSAPP_MESSAGE = "Hi Zelf Collective, I'd like to enquire about your interior design services."
 
 export default function WhatsAppButton() {
   const [hovered, setHovered] = useState(false)
